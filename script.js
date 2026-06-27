@@ -137,3 +137,51 @@ async function loadLatestVideo() {
 }
 
 document.addEventListener('DOMContentLoaded', loadLatestVideo);
+
+// ─── Cursor Trail Effect ──────────────────────────────────────
+const trail = [];
+const TRAIL_LENGTH = 12;
+
+for (let i = 0; i < TRAIL_LENGTH; i++) {
+    const dot = document.createElement('div');
+    dot.style.cssText = `
+        position: fixed;
+        width: ${8 - i * 0.5}px;
+        height: ${8 - i * 0.5}px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        opacity: ${1 - i / TRAIL_LENGTH};
+        background: hsl(${270 + i * 8}, 100%, 70%);
+        box-shadow: 0 0 ${6 - i * 0.3}px hsl(${270 + i * 8}, 100%, 70%);
+        transition: transform 0.1s ease;
+        transform: translate(-50%, -50%);
+    `;
+    document.body.appendChild(dot);
+    trail.push({ el: dot, x: 0, y: 0 });
+}
+
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function animateTrail() {
+    let x = mouseX;
+    let y = mouseY;
+
+    trail.forEach((dot, i) => {
+        const prev = i === 0 ? { x: mouseX, y: mouseY } : trail[i - 1];
+        dot.x += (prev.x - dot.x) * 0.35;
+        dot.y += (prev.y - dot.y) * 0.35;
+        dot.el.style.left = dot.x + 'px';
+        dot.el.style.top = dot.y + 'px';
+    });
+
+    requestAnimationFrame(animateTrail);
+}
+
+animateTrail();
