@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxLiveGame | Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="flex flex-col items-center justify-between p-4 md:p-8 min-h-screen bg-neutral-950 text-white">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-5xl flex flex-col items-center text-center mt-12 md:mt-20 mb-12 md:mb-16 pb-4">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-widest neon-text-rainbow">
+            LUXLIVEGAME
+        </h1>
+        <!-- Language Toggle -->
+        <div class="flex items-center gap-2 mt-4 bg-black/40 border border-purple-500/20 rounded-full p-1">
+            <button id="lang-en" onclick="setLang('en')"
+                class="px-4 py-1.5 rounded-full text-xs font-bold tracking-widest font-sub transition-colors bg-purple-600/60 text-white border border-purple-500/40">
+                EN
+            </button>
+            <button id="lang-it" onclick="setLang('it')"
+                class="px-4 py-1.5 rounded-full text-xs font-bold tracking-widest font-sub transition-colors text-neutral-400 hover:text-white">
+                IT
+            </button>
+        </div>
+    </header>
+
+    <!-- Bio Card -->
+    <div class="w-full max-w-5xl mb-8">
+        <div class="neon-border p-6 rounded-2xl bg-black/60 backdrop-blur-md text-center">
+            <p class="text-sm text-neutral-300 leading-relaxed font-sub" id="bio">
+                Welcome to the <span class="text-purple-400 font-bold">Digital Pantheon</span> — I'm LuxLiveGame,
+                bringing you chill vibes and entertaining gameplay across all genres. Whether you're
+                here to relax, laugh, or discover something new, you're in the right place.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Main Content Layout -->
+    <main class="w-full max-w-5xl flex flex-col gap-8">
+
+        <!-- Top Row: Socials (1/3) & Live Streaming (2/3) aligned vertically -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+
+            <!-- Left Side: Socials Column -->
+            <section class="lg:col-span-1 flex flex-col gap-6">
+
+                <!-- Socials Card -->
+                <div class="neon-border p-6 rounded-2xl bg-black/60 backdrop-blur-md">
+                    <h2 class="text-sm font-bold tracking-widest text-purple-400 uppercase mb-4 font-sub">Socials</h2>
+                    <div class="flex flex-col gap-6">
+
+                        <!-- Twitch -->
+                        <a href="https://www.twitch.tv/luxlivegame" target="_blank"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-purple-950/20 border border-purple-500/20 hover:border-purple-500/50 hover:bg-purple-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-purple-300 font-sub">Twitch Live
+                                Stream</span>
+                            <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z" />
+                            </svg>
+                        </a>
+
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/@LuxLiveGame" target="_blank"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/20 hover:border-rose-500/50 hover:bg-rose-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-rose-300 font-sub">YouTube Channel</span>
+                            <svg class="w-5 h-5 text-rose-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.507 9.388.507 9.388.507s7.517 0 9.388-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/lux_live_game/" target="_blank"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-pink-950/20 border border-pink-500/20 hover:border-pink-500/50 hover:bg-pink-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-pink-300 font-sub">Instagram</span>
+                            <svg class="w-5 h-5 text-pink-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 4.776-.507 5.885a5.137 5.137 0 0 1-2.11 2.11c-1.871.507-9.388.507-9.388.507s-7.517 0-9.388-.507a5.137 5.137 0 0 1-2.11-2.11C.012 15.584 0 15.204 0 12s.012-3.584.07-4.85a5.078 5.078 0 0 1 2.11-2.11C3.988 2.502 4.483 2.5 12 2.5zm0 1.8c-3.15 0-3.523.013-4.767.07-2.314.105-3.232 1.036-3.337 3.337-.057 1.243-.07 1.616-.07 4.763s.013 3.52.07 4.763c.105 2.302 1.018 3.232 3.337 3.337 1.244.057 1.617.07 4.767.07s3.52-.013 4.767-.07c2.314-.105 3.232-1.036 3.337-3.337.057-1.244.07-1.617.07-4.763s-.013-3.52-.07-4.763c-.105-2.302-1.018-3.232-3.337-3.337-1.244-.057-1.617-.07-4.767-.07zm0 3.538a4.123 4.123 0 1 1 0 8.246 4.123 4.123 0 0 1 0-8.246zm0 1.8a2.323 2.323 0 1 0 0 4.646 2.323 2.323 0 0 0 0-4.646zm5.305-3.3a1.08 1.08 0 1 1-2.16 0 1.08 1.08 0 0 1 2.16 0z" />
+                            </svg>
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/luxlivegame" target="_blank"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-blue-950/20 border border-blue-500/20 hover:border-blue-500/50 hover:bg-blue-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-blue-300 font-sub">Facebook</span>
+                            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+                            </svg>
+                        </a>
+
+                        <!-- Reddit -->
+                        <a href="https://www.reddit.com/user/LuxLiveGame/" target="_blank"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-orange-950/20 border border-orange-500/20 hover:border-orange-500/50 hover:bg-orange-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-orange-300 font-sub">Reddit
+                                Community</span>
+                            <svg class="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.85-1.64-6.24-1.72l1.32-4.16 3.61.77c.06.65.62 1.17 1.3 1.17 1.35 0 2.45-1.1 2.45-2.45S19.92 1 18.57 1c-.88 0-1.65.48-2.07 1.19l-3.9-.83c-.18-.04-.37.03-.48.18a.5.5 0 0 0-.08.47l-1.48 4.67C8.17 6.76 5.92 7.4 4.25 8.42c-.56-.76-1.46-1.24-2.42-1.24-1.65 0-3 1.35-3 3 0 1.2.71 2.23 1.74 2.72-.05.26-.08.52-.08.78 0 3.59 4.1 6.5 9.17 6.5s9.17-2.91 9.17-6.5c0-.26-.03-.52-.08-.78 1.03-.49 1.74-1.52 1.74-2.72zm-18.25 1c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .83-.67 1.5-1.15 1.5zm11.455 0c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5zm-3.05 4.31c-1.16 1.16-3.34 1.26-3.8 1.26-.46 0-2.64-.1-3.8-1.26-.14-.14-.14-.36 0-.5.14-.14.36-.14.5 0 .96.96 2.7 1.05 3.3 1.05.6 0 2.34-.09 3.3-1.05.14-.14.36-.14.5 0 .14.14.14.36 0 .5zm-3.05-2.81c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5c0 .83-.67 1.5-1.5 1.5z" />
+                            </svg>
+                        </a>
+
+                        <!-- TikTok -->
+                        <a href="https://www.tiktok.com/@luxlivegame" target="_blank"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-orange-950/20 border border-orange-500/20 hover:border-orange-500/50 hover:bg-orange-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-orange-300 font-sub">TikTok</span>
+                            <svg class="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
+                            </svg>
+                        </a>
+
+                        <!-- Telegram -->
+                        <a href="#"
+                            onclick="document.getElementById('telegram-modal').classList.remove('hidden'); return false;"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-indigo-950/20 border border-indigo-500/20 hover:border-indigo-500/50 hover:bg-indigo-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-indigo-300 font-sub">Telegram</span>
+                            <svg class="w-5 h-5 text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                            </svg>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Sponsorships Card -->
+                <div class="neon-border p-6 rounded-2xl bg-black/60 backdrop-blur-md">
+                    <h2 class="text-sm font-bold tracking-widest text-green-400 uppercase mb-4 font-sub">Sponsorships
+                    </h2>
+                    <div class="flex flex-col gap-6">
+
+                        <!-- Instant Gaming -->
+                        <a href="https://www.instant-gaming.com/?igr=LuxLiveGame" target="_blank"
+                            class="social-card flex items-center justify-between p-3.5 rounded-xl bg-green-950/20 border border-green-500/20 hover:border-green-500/50 hover:bg-green-900/30 transition-colors">
+                            <span class="font-bold text-sm tracking-wide text-green-300 font-sub">Instant
+                                Gaming<br><br>(Support Me & Get Discounts)</span>
+                            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 11.997L6.007 12 6 6.007 12 2l5.992 4.005L12 12z" />
+                            </svg>
+                        </a>
+
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Telegram Modal (outside the section, at body level) -->
+            <div id="telegram-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    onclick="document.getElementById('telegram-modal').classList.add('hidden')"></div>
+                <div
+                    class="relative z-10 bg-indigo-950 border border-indigo-500/40 rounded-2xl p-8 mx-4 max-w-sm w-full text-center shadow-2xl shadow-indigo-900/50">
+                    <div
+                        class="flex items-center justify-center w-14 h-14 rounded-full bg-indigo-500/20 border border-indigo-500/30 mx-auto mb-5">
+                        <svg class="w-7 h-7 text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-indigo-200 font-bold text-lg mb-2 font-sub tracking-wide">Telegram Group</h2>
+                    <p class="text-indigo-300/80 text-sm leading-relaxed mb-6">
+                        You must join the Discord server to get access to the Telegram group link.
+                    </p>
+                    <button onclick="document.getElementById('telegram-modal').classList.add('hidden')"
+                        class="w-full py-2.5 rounded-xl bg-indigo-600/40 hover:bg-indigo-600/60 border border-indigo-500/40 text-indigo-200 font-bold text-sm tracking-wide transition-colors font-sub">
+                        Got it
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side: Live Streaming Terminal -->
+            <section class="lg:col-span-2 flex flex-col">
+                <!-- Live Streaming Container -->
+                <div
+                    class="neon-border p-6 rounded-2xl bg-black/60 backdrop-blur-md flex flex-col h-full justify-between">
+                    <h2 class="text-sm font-bold tracking-widest text-cyan-400 uppercase mb-4 font-sub text-left">Live
+                        Streaming</h2>
+
+                    <!-- Expanded Live Feed / Video Player Aspect Box -->
+                    <div id="status-card"
+                        class="w-full h-full min-h-[340px] bg-neutral-950 rounded-xl border border-neutral-800/80 flex flex-col items-center justify-center relative overflow-hidden group">
+                        <!-- Subtle Scanner Grid Effect -->
+                        <iframe
+                            src="https://player.twitch.tv/?channel=luxlivegame&parent=gnu-luxtech.github.io&parent=localhost"
+                            frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+
+                        <!-- Live Pulse Pill -->
+                        <div
+                            class="absolute top-4 right-4 flex items-center gap-2 bg-neutral-900/95 px-3 py-1.5 rounded-full border border-neutral-800 z-10">
+                            <span class="status-pulse w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+                            <span class="text-xs font-bold tracking-wider text-neutral-400 uppercase">OFFLINE</span>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Latest YouTube Video -->
+        <section class="w-full">
+            <div class="neon-border p-6 rounded-2xl bg-black/60 backdrop-blur-md">
+                <h2 class="text-sm font-bold tracking-widest text-rose-400 uppercase mb-4 font-sub">Latest Video</h2>
+                <div class="relative w-full" style="padding-bottom: 56.25%;">
+                    <iframe id="yt-embed" class="absolute top-0 left-0 w-full h-full rounded-xl" src="" frameborder="0"
+                        allowfullscreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Middle Row: Phrase Block -->
+        <div class="flex items-center justify-center w-full py-2">
+            <div class="text-center">
+                <h3
+                    class="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 tracking-wider">
+                    Gaming Temple <span class="text-neutral-500 font-normal">|</span> The Digital Pantheon
+                </h3>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Discord Server Widget (Shorter, Stretched horizontally) -->
+        <section class="w-full">
+            <div class="neon-border p-6 rounded-2xl bg-black/60 backdrop-blur-md">
+                <h2 class="text-sm font-bold tracking-widest text-blue-400 uppercase mb-4 font-sub">Discord Server</h2>
+                <!-- PRO TIP: Replace YOUR_SERVER_ID with your Discord Server ID to load your live member grid -->
+                <iframe src="https://discord.com/widget?id=893582870537457694&theme=dark" width="100%" height="500"
+                    allowtransparency="true" frameborder="0"
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            </div>
+        </section>
+
+        <!-- Bottom Row: Personal Info -->
+        <section class="w-full">
+            <div class="neon-border p-6 rounded-2xl bg-black/60 backdrop-blur-md">
+                <h2 class="text-sm font-bold tracking-widest text-purple-400 uppercase mb-4 font-sub">Personal Info</h2>
+                <div class="flex flex-col gap-6">
+
+                    <!-- Email -->
+                    <div
+                        class="social-card flex items-center justify-between p-3.5 rounded-xl bg-purple-950/20 border border-purple-500/20">
+                        <a href="mailto:luxlivegame@gmail.com"
+                            class="font-bold text-sm tracking-wide text-purple-300 font-sub hover:text-purple-100 transition-colors">
+                            luxlivegame@gmail.com
+                        </a>
+                        <button id="copy-email-btn" onclick="copyEmail()"
+                            class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/30 transition-colors">
+                            <svg id="copy-icon" class="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                            </svg>
+                            <span id="copy-label"
+                                class="text-xs font-bold text-purple-400 font-sub tracking-wide">Copy</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        </div>
+        </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Space -->
+    <footer class="mt-16 mb-4 text-center">
+        <p class="text-[10px] text-neutral-600 tracking-[0.3em] uppercase">
+            &copy; 2026 LuxLiveGame &bull; The Digital Pantheon.
+        </p>
+    </footer>
+
+    <!-- Link to your external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
