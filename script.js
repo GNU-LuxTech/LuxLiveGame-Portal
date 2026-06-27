@@ -185,3 +185,16 @@ function animateTrail() {
 }
 
 animateTrail();
+
+// ─── Back to Top ──────────────────────────────────────────────
+const backToTop = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTop.classList.remove('hidden');
+        backToTop.classList.add('flex');
+    } else {
+        backToTop.classList.add('hidden');
+        backToTop.classList.remove('flex');
+    }
+});
