@@ -394,42 +394,34 @@ function buildAmbientSound() {
     masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
     masterGain.connect(audioCtx.destination);
 
-    // Layer 1: deep sub bass drone
-    const bass = audioCtx.createOscillator();
-    const bassGain = audioCtx.createGain();
-    bass.type = 'sine';
-    bass.frequency.value = 55; // A1
-    bassGain.gain.value = 0.18;
-    bass.connect(bassGain).connect(masterGain);
-    bass.start();
+    const audio = new Audio('honkin.mp3');
+    audio.loop = true;
+    const source = audioCtx.createMediaElementSource(audio);
+    source.connect(masterGain);
+    audio.play();
 
-    // Layer 2: mid pad (slightly detuned for width)
-    const pad = audioCtx.createOscillator();
-    const padGain = audioCtx.createGain();
-    pad.type = 'triangle';
-    pad.frequency.value = 110.4; // A2, slightly detuned
-    padGain.gain.value = 0.08;
-    pad.connect(padGain).connect(masterGain);
-    pad.start();
+    soundNodes = [audio];
+}
 
-    // Layer 3: high shimmer
-    const shimmer = audioCtx.createOscillator();
-    const shimmerGain = audioCtx.createGain();
-    shimmer.type = 'sine';
-    shimmer.frequency.value = 440; // A4
-    shimmerGain.gain.value = 0.025;
-    shimmer.connect(shimmerGain).connect(masterGain);
-    shimmer.start();
+// ─── Sound Toggle ─────────────────────────────────────────────
+let audioCtx = null;
+let masterGain = null;
+let soundNodes = [];
+let soundOn = false;
 
-    // Slow LFO to subtly modulate pad volume (breathing effect)
-    const lfo = audioCtx.createOscillator();
-    const lfoGain = audioCtx.createGain();
-    lfo.frequency.value = 0.12; // very slow
-    lfoGain.gain.value = 0.04;
-    lfo.connect(lfoGain).connect(padGain.gain);
-    lfo.start();
+function buildAmbientSound() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+    masterGain.connect(audioCtx.destination);
 
-    soundNodes = [bass, pad, shimmer, lfo];
+    const audio = new Audio('honkin.mp3');
+    audio.loop = true;
+    const source = audioCtx.createMediaElementSource(audio);
+    source.connect(masterGain);
+    audio.play();
+
+    soundNodes = [audio];
 }
 
 function toggleSound() {
@@ -437,13 +429,14 @@ function toggleSound() {
 
     soundOn = !soundOn;
 
-    // Fade in/out smoothly
+    if (soundOn) {
+        soundNodes[0].play();
+    } else {
+        soundNodes[0].pause();
+    }
     masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
     masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
-    masterGain.gain.linearRampToValueAtTime(
-        soundOn ? 0.6 : 0,
-        audioCtx.currentTime + 1.5
-    );
+    masterGain.gain.linearRampToValueAtTime(soundOn ? 1 : 0, audioCtx.currentTime + 1.5);
 
     // Swap icons
     document.getElementById('sound-icon-off').classList.toggle('hidden', soundOn);
