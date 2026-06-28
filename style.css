@@ -31,6 +31,7 @@ body {
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     pointer-events: none;
     opacity: 0.35;
     transition: opacity 0.3s ease;
@@ -48,6 +49,7 @@ body {
 .neon-text-rainbow {
     background: linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 8px rgba(127, 255, 255, 0.3));
 }
