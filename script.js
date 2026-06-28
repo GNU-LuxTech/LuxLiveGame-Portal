@@ -227,3 +227,11 @@ function formatCount(n) {
 }
 
 document.addEventListener('DOMContentLoaded', loadYouTubeStats);
+
+// ─── Loading Screen ───────────────────────────────────────────
+window.addEventListener('load', () => {
+    const screen = document.getElementById('loading-screen');
+    screen.style.transition = 'opacity 0.8s ease';
+    screen.style.opacity = '0';
+    setTimeout(() => screen.remove(), 800);
+});

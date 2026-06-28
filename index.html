@@ -7,13 +7,30 @@
     <title>LuxLiveGame | Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Link to your external CSS file -->
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="Gaming_Temple_2.png">
     <link rel="apple-touch-icon" href="Gaming_Temple_2.png">
 </head>
 
 <body class="flex flex-col items-center justify-between p-4 md:p-8 min-h-screen bg-neutral-950 text-white">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 z-[99999] bg-neutral-950 flex flex-col items-center justify-center">
+        <div class="relative flex items-center justify-center mb-8">
+            <!-- Spinning ring -->
+            <div
+                class="absolute w-24 h-24 rounded-full border-2 border-transparent border-t-purple-500 border-r-pink-500 animate-spin">
+            </div>
+            <div class="absolute w-16 h-16 rounded-full border-2 border-transparent border-b-cyan-500 border-l-indigo-500 animate-spin"
+                style="animation-direction: reverse; animation-duration: 0.8s;"></div>
+            <!-- Logo -->
+            <img src="Gaming_Temple_2.png" class="w-10 h-10 rounded-full">
+        </div>
+        <p class="text-xs font-bold tracking-[0.4em] text-neutral-500 uppercase font-sub animate-pulse">
+            Entering the Pantheon...
+        </p>
+    </div>
 
     <!-- Header Section -->
     <header class="w-full max-w-5xl flex flex-col items-center text-center mt-12 md:mt-20 mb-12 md:mb-16 pb-4">
