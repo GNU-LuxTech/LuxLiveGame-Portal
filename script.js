@@ -257,7 +257,208 @@ revealElements.forEach(el => {
     revealObserver.observe(el);
 });
 
-// ─── Animated Tab Title ───────────────────────────────────────
+
+// ─── Typing Animation ─────────────────────────────────────────
+function startTypingAnimation() {
+    const text = 'LUXLIVEGAME';
+    const target = document.getElementById('typed-text');
+    const cursor = document.getElementById('type-cursor');
+    if (!target || !cursor) return;
+
+    let i = 0;
+    const speed = 100; // ms per character
+
+    function typeNext() {
+        if (i < text.length) {
+            target.textContent += text[i];
+            i++;
+            setTimeout(typeNext, speed);
+        } else {
+            // Blink a couple more times, then fade cursor out
+            setTimeout(() => {
+                cursor.classList.add('done');
+            }, 1200);
+        }
+    }
+
+    // Small delay so it starts after the loading screen fades
+    setTimeout(typeNext, 900);
+}
+
+document.addEventListener('DOMContentLoaded', startTypingAnimation);
+
+// ─── Particle Background ──────────────────────────────────────
+(function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // Reduce particle count on mobile for performance
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const PARTICLE_COUNT = isMobile ? 40 : 80;
+    const CONNECTION_DIST = isMobile ? 100 : 140;
+    const MAX_SPEED = 0.35;
+
+    let W, H, particles;
+
+    function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+
+    function randomBetween(a, b) {
+        return a + Math.random() * (b - a);
+    }
+
+    function createParticle() {
+        // Hue range: purple (260) → indigo (230) → cyan (190)
+        const hue = randomBetween(190, 280);
+        return {
+            x: randomBetween(0, W),
+            y: randomBetween(0, H),
+            vx: randomBetween(-MAX_SPEED, MAX_SPEED),
+            vy: randomBetween(-MAX_SPEED, MAX_SPEED),
+            r: randomBetween(1.2, 2.5),
+            hue,
+            alpha: randomBetween(0.3, 0.75),
+        };
+    }
+
+    function initParticleList() {
+        particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Update + draw dots
+        for (const p of particles) {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Wrap around edges
+            if (p.x < 0) p.x = W;
+            if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H;
+            if (p.y > H) p.y = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 70%, ${p.alpha})`;
+            ctx.fill();
+        }
+
+        // Draw connecting lines between nearby particles
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const a = particles[i];
+                const b = particles[j];
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < CONNECTION_DIST) {
+                    const lineAlpha = (1 - dist / CONNECTION_DIST) * 0.18;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.strokeStyle = `hsla(${(a.hue + b.hue) / 2}, 100%, 70%, ${lineAlpha})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    resize();
+    initParticleList();
+    draw();
+
+    window.addEventListener('resize', () => {
+        resize();
+        initParticleList();
+    });
+})();
+
+// ─── Sound Toggle (Web Audio ambient drone) ───────────────────
+let audioCtx = null;
+let masterGain = null;
+let soundNodes = [];
+let soundOn = false;
+
+function buildAmbientSound() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+    masterGain.connect(audioCtx.destination);
+
+    // Layer 1: deep sub bass drone
+    const bass = audioCtx.createOscillator();
+    const bassGain = audioCtx.createGain();
+    bass.type = 'sine';
+    bass.frequency.value = 55; // A1
+    bassGain.gain.value = 0.18;
+    bass.connect(bassGain).connect(masterGain);
+    bass.start();
+
+    // Layer 2: mid pad (slightly detuned for width)
+    const pad = audioCtx.createOscillator();
+    const padGain = audioCtx.createGain();
+    pad.type = 'triangle';
+    pad.frequency.value = 110.4; // A2, slightly detuned
+    padGain.gain.value = 0.08;
+    pad.connect(padGain).connect(masterGain);
+    pad.start();
+
+    // Layer 3: high shimmer
+    const shimmer = audioCtx.createOscillator();
+    const shimmerGain = audioCtx.createGain();
+    shimmer.type = 'sine';
+    shimmer.frequency.value = 440; // A4
+    shimmerGain.gain.value = 0.025;
+    shimmer.connect(shimmerGain).connect(masterGain);
+    shimmer.start();
+
+    // Slow LFO to subtly modulate pad volume (breathing effect)
+    const lfo = audioCtx.createOscillator();
+    const lfoGain = audioCtx.createGain();
+    lfo.frequency.value = 0.12; // very slow
+    lfoGain.gain.value = 0.04;
+    lfo.connect(lfoGain).connect(padGain.gain);
+    lfo.start();
+
+    soundNodes = [bass, pad, shimmer, lfo];
+}
+
+function toggleSound() {
+    if (!audioCtx) buildAmbientSound();
+
+    soundOn = !soundOn;
+
+    // Fade in/out smoothly
+    masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+    masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+    masterGain.gain.linearRampToValueAtTime(
+        soundOn ? 0.6 : 0,
+        audioCtx.currentTime + 1.5
+    );
+
+    // Swap icons
+    document.getElementById('sound-icon-off').classList.toggle('hidden', soundOn);
+    document.getElementById('sound-icon-on').classList.toggle('hidden', !soundOn);
+
+    // Subtle button glow when active
+    const btn = document.getElementById('sound-toggle');
+    if (soundOn) {
+        btn.classList.add('border-purple-500/60', 'text-purple-400');
+        btn.classList.remove('border-purple-500/20', 'text-neutral-600');
+    } else {
+        btn.classList.remove('border-purple-500/60', 'text-purple-400');
+        btn.classList.add('border-purple-500/20', 'text-neutral-600');
+    }
+}
 const tabTitles = [
     'LuxLiveGame | Portal',
     '🎮 The Digital Pantheon',
