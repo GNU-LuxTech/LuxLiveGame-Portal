@@ -382,27 +382,6 @@ document.addEventListener('DOMContentLoaded', startTypingAnimation);
     });
 })();
 
-// ─── Sound Toggle (Web Audio ambient drone) ───────────────────
-let audioCtx = null;
-let masterGain = null;
-let soundNodes = [];
-let soundOn = false;
-
-function buildAmbientSound() {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    masterGain = audioCtx.createGain();
-    masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-    masterGain.connect(audioCtx.destination);
-
-    const audio = new Audio('honkin.mp3');
-    audio.loop = true;
-    const source = audioCtx.createMediaElementSource(audio);
-    source.connect(masterGain);
-    audio.play();
-
-    soundNodes = [audio];
-}
-
 // ─── Sound Toggle ─────────────────────────────────────────────
 let audioCtx = null;
 let masterGain = null;
@@ -415,7 +394,7 @@ function buildAmbientSound() {
     masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
     masterGain.connect(audioCtx.destination);
 
-    const audio = new Audio('honkin.mp3');
+    const audio = new Audio('your-ambient-track.mp3'); // 👈 swap filename here
     audio.loop = true;
     const source = audioCtx.createMediaElementSource(audio);
     source.connect(masterGain);
@@ -452,6 +431,8 @@ function toggleSound() {
         btn.classList.add('border-purple-500/20', 'text-neutral-600');
     }
 }
+
+// Cyclic title animation
 const tabTitles = [
     'LuxLiveGame | Portal',
     '🎮 The Digital Pantheon',
