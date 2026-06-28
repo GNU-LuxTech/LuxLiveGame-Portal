@@ -257,3 +257,19 @@ revealElements.forEach(el => {
     el.classList.add('reveal-hidden');
     revealObserver.observe(el);
 });
+
+// ─── Animated Tab Title ───────────────────────────────────────
+const tabTitles = [
+    'LuxLiveGame | Portal',
+    '🎮 The Digital Pantheon',
+    '⚔️ Gaming Temple',
+    '👾 Join the Community!',
+    '🔴 Watch Live on Twitch!',
+];
+
+let tabIndex = 0;
+
+setInterval(() => {
+    tabIndex = (tabIndex + 1) % tabTitles.length;
+    document.title = tabTitles[tabIndex];
+}, 3000);
