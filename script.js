@@ -115,6 +115,7 @@ function triggerEasterEgg() {
 
 // ─── YouTube Latest Video ─────────────────────────────────────
 async function loadLatestVideo() {
+    // YEAH I HARDCODED THIS API KEY, SO WHAT ?! TRY TO USE IT AND SEE WHAT HAPPENS.
     const API_KEY = 'AIzaSyDoPNznWweiiI5QQJONwWMvWQTFLWr06mI';
     const CHANNEL_ID = 'UCJ4N14OtfO_KEkWVzVXxMEQ';
 
