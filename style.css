@@ -12,9 +12,11 @@ body {
     position: relative;
 }
 
+/* makes border more visible and colorful */
+/*
 .neon-border:hover {
     box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
-}
+}*/
 
 .neon-border::before {
     content: '';
@@ -37,9 +39,10 @@ body {
     transition: opacity 0.3s ease;
 }
 
-.neon-border:hover::before {
+/* Makes tabs hover */
+/*.neon-border:hover::before {
     opacity: 0.7;
-}
+}*/
 
 /* Neon Text Glow Effects */
 .neon-text-purple {
@@ -95,9 +98,11 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 
 .social-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px); makes card move up on hover
 }
+*/
 
 /* Scroll Reveal */
 .reveal-hidden {
