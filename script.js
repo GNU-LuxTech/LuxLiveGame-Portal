@@ -240,3 +240,20 @@ function hideLoadingScreen() {
 // Hide when page loads OR after 3 seconds max, whichever comes first
 window.addEventListener('load', hideLoadingScreen);
 setTimeout(hideLoadingScreen, 3000);
+
+// ─── Scroll Reveal ────────────────────────────────────────────
+const revealElements = document.querySelectorAll('.neon-border, .bio-card');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+revealElements.forEach(el => {
+    el.classList.add('reveal-hidden');
+    revealObserver.observe(el);
+});
