@@ -229,9 +229,14 @@ function formatCount(n) {
 document.addEventListener('DOMContentLoaded', loadYouTubeStats);
 
 // ─── Loading Screen ───────────────────────────────────────────
-window.addEventListener('load', () => {
+function hideLoadingScreen() {
     const screen = document.getElementById('loading-screen');
+    if (!screen) return;
     screen.style.transition = 'opacity 0.8s ease';
     screen.style.opacity = '0';
     setTimeout(() => screen.remove(), 800);
-});
+}
+
+// Hide when page loads OR after 3 seconds max, whichever comes first
+window.addEventListener('load', hideLoadingScreen);
+setTimeout(hideLoadingScreen, 3000);
