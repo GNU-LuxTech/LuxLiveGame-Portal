@@ -199,3 +199,31 @@ window.addEventListener('scroll', () => {
         backToTop.classList.remove('flex');
     }
 });
+
+// ─── YouTube Subscriber Count ─────────────────────────────────
+async function loadYouTubeStats() {
+    const API_KEY = 'AIzaSyDoPNznWweiiI5QQJONwWMvWQTFLWr06mI';
+    const CHANNEL_ID = 'UCJ4N14OtfO_KEkWVzVXxMEQ';
+
+    try {
+        const response = await fetch(
+            `https://www.googleapis.com/youtube/v3/channels?key=${API_KEY}&id=${CHANNEL_ID}&part=statistics`
+        );
+        const data = await response.json();
+
+        if (!data.items || data.items.length === 0) return;
+
+        const subs = parseInt(data.items[0].statistics.subscriberCount);
+        document.getElementById('yt-subs').textContent = formatCount(subs);
+    } catch (err) {
+        console.error('Failed to load YouTube stats:', err);
+    }
+}
+
+function formatCount(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+    return n.toString();
+}
+
+document.addEventListener('DOMContentLoaded', loadYouTubeStats);
